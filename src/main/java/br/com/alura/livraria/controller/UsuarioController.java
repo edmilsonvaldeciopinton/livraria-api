@@ -1,12 +1,10 @@
 package br.com.alura.livraria.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.livraria.dto.UsuarioDto;
 import br.com.alura.livraria.dto.UsuarioFormDto;
-import br.com.alura.livraria.modelo.Usuario;
 import br.com.alura.livraria.service.UsuarioService;
 
 @RestController
@@ -29,8 +26,6 @@ public class UsuarioController {
 	@GetMapping
 	public List<UsuarioDto> listar() {
 		return service.listar();
-
-
 	}
 
 	@PostMapping

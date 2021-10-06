@@ -24,7 +24,7 @@ public class LivroController {
 
 	@GetMapping
 	public List<LivroDto> listar() {
-		return service.Listar();
+		return service.listar();
 	}
 
 	@PostMapping

@@ -24,7 +24,6 @@ public class AutorController {
 
 	@GetMapping
 	public List<AutorDto> listar() {
-		List<AutorDto> autor = service.listar();
 		return service.listar();
 
 	}
