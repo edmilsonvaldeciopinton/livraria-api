@@ -3,6 +3,8 @@ package br.com.alura.livraria.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,14 @@ public class AutorService {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	public List<AutorDto> listar() {
-		List<Autor> autores = autorRepository.findAll();	
+		List<Autor> autores = autorRepository.findAll();
 		return autores.stream().map(a -> modelMapper.map(a, AutorDto.class)).collect(Collectors.toList());
 	}
 
+	@Transactional
 	public void cadastrar(AutorFormDto dto) {
 		Autor autor = modelMapper.map(dto, Autor.class);
+		autor.setId(null);
 		autorRepository.save(autor);
 	}
 }

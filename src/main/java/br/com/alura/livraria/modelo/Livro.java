@@ -31,7 +31,4 @@ public class Livro {
 	private Integer numeroPaginas;
 	private String autor;
 
-	// @ManyToOne
-	// private Usuario usuario;
-
 }
