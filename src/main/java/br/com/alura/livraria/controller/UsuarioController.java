@@ -1,5 +1,11 @@
 package br.com.alura.livraria.controller;
 
+<<<<<<< HEAD
+=======
+
+import java.util.List;
+
+>>>>>>> 778f5c028cd2d9b914ed26c12ba75f00d1fe9e9d
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +30,13 @@ public class UsuarioController {
 	private UsuarioService service;
 
 	@GetMapping
+<<<<<<< HEAD
 	public Page<UsuarioDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
 		return service.listar(paginacao);
+=======
+	public List<UsuarioDto> listar() {
+		return service.listar();
+>>>>>>> 778f5c028cd2d9b914ed26c12ba75f00d1fe9e9d
 	}
 
 	@PostMapping

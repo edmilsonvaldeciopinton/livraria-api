@@ -26,8 +26,13 @@ public class LivroController {
 	private LivroService service;
 
 	@GetMapping
+<<<<<<< HEAD
 	public Page<LivroDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
 		return service.listar(paginacao);
+=======
+	public List<LivroDto> listar() {
+		return service.listar();
+>>>>>>> 778f5c028cd2d9b914ed26c12ba75f00d1fe9e9d
 	}
 
 	@PostMapping

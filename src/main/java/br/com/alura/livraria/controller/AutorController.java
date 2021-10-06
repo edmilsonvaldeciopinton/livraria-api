@@ -24,8 +24,13 @@ public class AutorController {
 	private AutorService service;
 
 	@GetMapping
+<<<<<<< HEAD
 	public Page<AutorDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
 		return service.listar(paginacao);
+=======
+	public List<AutorDto> listar() {
+		return service.listar();
+>>>>>>> 778f5c028cd2d9b914ed26c12ba75f00d1fe9e9d
 
 	}
 
