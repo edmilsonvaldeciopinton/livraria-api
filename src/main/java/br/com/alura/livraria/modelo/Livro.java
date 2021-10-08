@@ -2,7 +2,10 @@ package br.com.alura.livraria.modelo;
 
 import java.time.LocalDate;
 
+<<<<<<< HEAD
 import javax.persistence.Column;
+=======
+>>>>>>> 40a9978bbe3c1718fd395f7f15c50f7ab02105a5
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,10 +34,14 @@ public class Livro {
 	
 	@Column(name = "datalancamento")
 	private LocalDate dataLancamento;
+<<<<<<< HEAD
 	
 	@Column(name = "numeropaginas")	
 	private Integer numeroPaginas;
 	
+=======
+	private Integer numeroPaginas;
+>>>>>>> 40a9978bbe3c1718fd395f7f15c50f7ab02105a5
 	private String autor;
 
 }
