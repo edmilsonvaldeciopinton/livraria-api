@@ -2,10 +2,7 @@ package br.com.alura.livraria.modelo;
 
 import java.time.LocalDate;
 
-<<<<<<< HEAD
 import javax.persistence.Column;
-=======
->>>>>>> 40a9978bbe3c1718fd395f7f15c50f7ab02105a5
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,10 +30,10 @@ public class Autor {
 	private Long id;
 	private String nome;
 	private String email;
-	
+
 	@Column(name = "datanascimento")
 	private LocalDate dataNascimento;
-	
+
 	@Column(name = "minicurriculum")
 	private String miniCurriculum;
 
