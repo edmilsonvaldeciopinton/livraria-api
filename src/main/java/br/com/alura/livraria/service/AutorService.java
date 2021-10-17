@@ -1,8 +1,5 @@
 package br.com.alura.livraria.service;
 
-
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -23,7 +20,6 @@ public class AutorService {
 	private AutorRepository autorRepository;
 	private ModelMapper modelMapper = new ModelMapper();
 
-
 	public Page<AutorDto> listar(Pageable paginacao) {
 		Page<Autor> autores = autorRepository.findAll(paginacao);
 		return autores.map(a -> modelMapper.map(a, AutorDto.class));
@@ -31,6 +27,8 @@ public class AutorService {
 
 	@Transactional
 	public AutorDto cadastrar(AutorFormDto dto) {
+		//throw new NullPointerException("teste");
+
 		Autor autor = modelMapper.map(dto, Autor.class);
 		autor.setId(null);
 		autorRepository.save(autor);

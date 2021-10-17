@@ -1,6 +1,5 @@
 package br.com.alura.livraria.service;
 
-
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -12,18 +11,26 @@ import org.springframework.stereotype.Service;
 import br.com.alura.livraria.dto.LivroDto;
 import br.com.alura.livraria.dto.LivroFormDto;
 import br.com.alura.livraria.modelo.Livro;
+import br.com.alura.livraria.repository.AutorRepository;
 import br.com.alura.livraria.repository.LivroRepository;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Service
 public class LivroService {
 
 	@Autowired
 	private LivroRepository livroRepository;
+
+	@Autowired
+	private AutorRepository autorRepository;
+
 	private ModelMapper modelMapper = new ModelMapper();
 
 	public Page<LivroDto> listar(Pageable paginacao) {
-		Page<Livro> livros = livroRepository.findAll(paginacao);
-		return livros.map(a -> modelMapper.map(a, LivroDto.class));
+		return livroRepository.findAll(paginacao).map(l -> modelMapper.map(l, LivroDto.class));
 	}
 
 	@Transactional
@@ -34,6 +41,5 @@ public class LivroService {
 		return modelMapper.map(livro, LivroDto.class);
 
 	}
-	
 
 }

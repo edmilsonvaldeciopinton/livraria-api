@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ItemLivroDto {
+public class ItemLivrariaDto {
 
 	private String autor;
 	private Long quantidade;

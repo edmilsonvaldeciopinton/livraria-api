@@ -10,11 +10,15 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LivroFormDto {
 
 	@NotBlank
@@ -22,15 +26,13 @@ public class LivroFormDto {
 	private String titulo;
 
 	@PastOrPresent
-	@Column(name="data_lancamento")
+	@Column(name = "data_lancamento")
 	private LocalDate dataLancamento;
 
 	@Min(100)
-	private int numeroPaginas;
+	private Integer numeroPaginas;
 
-	private String autor;
-	
-	@JsonAlias("usuario_id")
-	private Long usuarioId;
+	@JsonAlias("autor_id")
+	private Long autorId;
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.livraria.dto.ItemLivroDto;
+import br.com.alura.livraria.dto.ItemLivrariaDto;
 import br.com.alura.livraria.service.RelatorioService;
 
 @RestController
@@ -15,11 +15,11 @@ import br.com.alura.livraria.service.RelatorioService;
 public class RelatoriosController {
 
 	@Autowired
-	private RelatorioService service;
+	private RelatorioService relatorioService;
 
-	@GetMapping("/livraria")
-	public List<ItemLivroDto> relatorioQuantidadeDeLivros() {
-		return service.relatorioQuantidadeDeLivros();
+	@GetMapping("/livros")
+	public List<ItemLivrariaDto> relatorioLivrosPublicadosPorAutor() {
+		return relatorioService.relatorioLivrosPublicadosPorAutor();
 
 	}
 

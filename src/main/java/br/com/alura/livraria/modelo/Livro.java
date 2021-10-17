@@ -36,12 +36,7 @@ public class Livro {
 	@Column(name = "numeropaginas")
 	private Integer numeroPaginas;
 
-	// @ManyToOne
-	private String autor;
-	
 	@ManyToOne
-	private Usuario usuario;
-	
-	
+	private Autor autor;
 
 }

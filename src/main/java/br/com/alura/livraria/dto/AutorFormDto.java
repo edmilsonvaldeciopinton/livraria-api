@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -25,7 +25,7 @@ public class AutorFormDto {
 	@Email
 	private String email;
 
-	@Past
+	@PastOrPresent
 	private LocalDate dataNascimento;
 
 	@NotBlank
