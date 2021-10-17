@@ -39,5 +39,8 @@ public class Autor {
 
 	@ManyToOne
 	private Usuario usuario;
+	
+	public Autor(long id, String nome, String email, String string, String miniCurriculum, Usuario usuario) {
+	}
 
 }
