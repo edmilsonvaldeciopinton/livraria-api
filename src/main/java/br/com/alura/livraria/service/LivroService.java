@@ -1,5 +1,6 @@
 package br.com.alura.livraria.service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.alura.livraria.dto.LivroDto;
 import br.com.alura.livraria.dto.LivroFormDto;
+import br.com.alura.livraria.modelo.Autor;
 import br.com.alura.livraria.modelo.Livro;
 import br.com.alura.livraria.repository.AutorRepository;
 import br.com.alura.livraria.repository.LivroRepository;
@@ -35,10 +37,22 @@ public class LivroService {
 
 	@Transactional
 	public LivroDto cadastrar(LivroFormDto dto) {
-		Livro livro = modelMapper.map(dto, Livro.class);
-		livro.setId(null);
-		livroRepository.save(livro);
-		return modelMapper.map(livro, LivroDto.class);
+		Long idAutor = dto.getAutorId();
+		
+		try {
+			Autor autor = autorRepository.getById(idAutor);	
+			Livro livro = modelMapper.map(dto, Livro.class);
+			livro.setId(null);
+			livroRepository.save(livro);
+			return modelMapper.map(livro, LivroDto.class);
+		} catch (EntityNotFoundException e) {
+           throw new IllegalArgumentException("autor inexistente");
+		}
+		
+
+		
+		
+
 
 	}
 
