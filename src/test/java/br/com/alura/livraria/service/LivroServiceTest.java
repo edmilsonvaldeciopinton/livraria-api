@@ -31,12 +31,17 @@ class LivroServiceTest {
 	@InjectMocks
 	private LivroService service;
 
+	private LivroFormDto criarLivroFormDto() {
+		LivroFormDto formLivroDto = new LivroFormDto("E o Vento Levou", LocalDate.now(), 100, 1l);
+		return formLivroDto;
+	}
+
 	@Test
 	void deveriaCadastrarUmLivro() {
-		LivroFormDto formLivroDto = new LivroFormDto("E o Vento Levou", LocalDate.now(), 100, 1l);
+		LivroFormDto formLivroDto = criarLivroFormDto();
 
 		LivroDto dto = service.cadastrar(formLivroDto);
-		
+
 		Mockito.verify(livroRepository.save(Mockito.any()));
 
 		assertEquals(formLivroDto.getTitulo(), dto.getTitulo());
@@ -47,7 +52,7 @@ class LivroServiceTest {
 
 	@Test
 	void naodeveriaCadastrarUmLivroComAutorInexistente() {
-		LivroFormDto formLivroDto = new LivroFormDto("E o Vento Levou", LocalDate.now(), 100, 1l);
+		LivroFormDto formLivroDto = criarLivroFormDto();
 
 		Mockito.when(autorRepository.getById(formLivroDto.getAutorId())).thenThrow(EntityNotFoundException.class);
 

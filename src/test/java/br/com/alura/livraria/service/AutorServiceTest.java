@@ -30,10 +30,15 @@ class AutorServiceTest {
 
 	@InjectMocks
 	private AutorService service;
+	
+	private AutorFormDto criarAutorFormDto() {
+		AutorFormDto formAutorDto = new AutorFormDto("Fulano", "fulano@gmail.com", LocalDate.now(), "Escritor", 1l);
+		return formAutorDto;
+	}
 
 	@Test
 	void deveriaCadastrarUmAutor() {
-		AutorFormDto formAutorDto = new AutorFormDto("Fulano", "fulano@gmail.com", LocalDate.now(), "Escritor", 1l);
+		AutorFormDto formAutorDto = criarAutorFormDto();
 
 		AutorDto dto = service.cadastrar(formAutorDto);
 		
@@ -48,7 +53,7 @@ class AutorServiceTest {
 
 	@Test
 	void naodeveriaCadastrarUmAutorComUsuarioInexixtente() {
-		AutorFormDto formAutorDto = new AutorFormDto("Fulano", "fulano@gmail.com", LocalDate.now(), "Escritor", 1l);
+		AutorFormDto formAutorDto = criarAutorFormDto();
 
 		Mockito.when(usuarioRepository.getById(formAutorDto.getUsuarioId())).thenThrow(EntityNotFoundException.class);
 
