@@ -39,8 +39,13 @@ public class Autor {
 
 	@ManyToOne
 	private Usuario usuario;
-	
-	public Autor(long id, String nome, String email, String string, String miniCurriculum, Usuario usuario) {
+
+	public Autor(String nome, String email, LocalDate dataNascimento, String miniCurriculum, Usuario usuario) {
+		this.nome = nome;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.miniCurriculum = miniCurriculum;
+		this.usuario = usuario;
 	}
 
 }
