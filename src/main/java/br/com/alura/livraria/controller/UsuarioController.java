@@ -1,6 +1,5 @@
 package br.com.alura.livraria.controller;
 
-
 import java.net.URI;
 
 import javax.validation.Valid;
@@ -20,35 +19,31 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.alura.livraria.dto.UsuarioDto;
 import br.com.alura.livraria.dto.UsuarioFormDto;
 import br.com.alura.livraria.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/usuarios")
+@Api(tags = "Usuario")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioService service;
 
 	@GetMapping
-
+	@ApiOperation("Listagem de Usuários")
 	public Page<UsuarioDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
 		return service.listar(paginacao);
 	}
 
 	@PostMapping
+	@ApiOperation("Cadastramento de Usuários")
 	public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioFormDto dto,
 			UriComponentsBuilder uriBuilder) {
-		UsuarioDto usuarioDto =  service.cadastrar(dto);
-		URI uri = uriBuilder
-				.path("/usuarios/{id}")
-				.buildAndExpand(usuarioDto.getId())
-				.toUri();
+		UsuarioDto usuarioDto = service.cadastrar(dto);
+		URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuarioDto.getId()).toUri();
 		return ResponseEntity.created(uri).body(usuarioDto);
 
 	}
-	
-	
 
-
-	}
-
-
+}
