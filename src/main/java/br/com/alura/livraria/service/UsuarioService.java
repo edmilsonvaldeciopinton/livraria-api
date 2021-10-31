@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.alura.livraria.dto.UsuarioDto;
@@ -21,7 +22,12 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	private ModelMapper modelMapper = new ModelMapper();
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
 	public Page<UsuarioDto> listar(Pageable paginacao) {
@@ -36,7 +42,7 @@ public class UsuarioService {
 		Usuario usuario = modelMapper.map(dto, Usuario.class);
 
 		String senha = new Random().nextInt(999999) + "";
-		usuario.setSenha(senha);
+		usuario.setSenha(bCryptPasswordEncoder.encode(senha));
 
 		usuarioRepository.save(usuario);
 		return modelMapper.map(usuario, UsuarioDto.class);

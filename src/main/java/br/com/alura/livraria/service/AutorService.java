@@ -31,7 +31,8 @@ public class AutorService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	private ModelMapper modelMapper = new ModelMapper();
+	@Autowired
+	private ModelMapper modelMapper;
 
 	public Page<AutorDto> listar(Pageable paginacao) {
 //		return autorRepository.findAll(paginacao).map(a -> modelMapper.map(a, AutorDto.class));
