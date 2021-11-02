@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,18 +35,23 @@ public class AutorService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public Page<AutorDto> listar(Pageable paginacao) {
-//		return autorRepository.findAll(paginacao).map(a -> modelMapper.map(a, AutorDto.class));
-		Page<Autor> autores = autorRepository.findAll(paginacao);
-		return autores.map(a -> modelMapper.map(a, AutorDto.class));
+	public Page<AutorDto> listar(Pageable paginacao, Usuario usuario) {
+		return autorRepository.findAllByUsuario(paginacao, usuario).map(a -> modelMapper.map(a, AutorDto.class));
+//		Page<Autor> autores = autorRepository.findAllByUsuario(paginacao, usuario);
+//		return autores.map(a -> modelMapper.map(a, AutorDto.class));
 	}
 
 	@Transactional
-	public AutorDto cadastrar(AutorFormDto dto) {
+	public AutorDto cadastrar(AutorFormDto dto, Usuario logado) {
 		Long idUsuario = dto.getUsuarioId();
 
 		try {
 			Usuario usuario = usuarioRepository.getById(idUsuario);
+
+			if (!usuario.equals(logado)) {
+				lancarErroAcessoNegado();
+			}
+
 			Autor autor = modelMapper.map(dto, Autor.class);
 			autor.setId(null);
 			autorRepository.save(autor);
@@ -57,24 +63,39 @@ public class AutorService {
 	}
 
 	@Transactional
-	public AutorDto atualizar(AtualizacaoAutorFormDto dto) {
+	public AutorDto atualizar(AtualizacaoAutorFormDto dto, Usuario logado) {
 		Autor autor = autorRepository.getById(dto.getId());
+
+		if (!autor.pertenceAoUsuario(logado)) {
+			lancarErroAcessoNegado();
+		}
+
 		autor.atualizarInformacoes(dto.getNome(), dto.getEmail(), dto.getDataNascimento(), dto.getMiniCurriculum());
 		return modelMapper.map(autor, AutorDto.class);
 	}
 
 	@Transactional
-	public void remover(Long id) {
+	public void remover(Long id, Usuario logado) {
+		Autor autor = autorRepository.getById(id);
+		if (!autor.pertenceAoUsuario(logado)) {
+			lancarErroAcessoNegado();
+		}
 		autorRepository.deleteById(id);
 
 	}
 
-	public AutorDetalhadaDto detalhar(Long id) {
-		Autor autor = autorRepository
-				.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException());
-		
+	public AutorDetalhadaDto detalhar(Long id, Usuario logado) {
+		Autor autor = autorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+
+		if (!autor.pertenceAoUsuario(logado)) {
+			lancarErroAcessoNegado();
+		}
+
 		return modelMapper.map(autor, AutorDetalhadaDto.class);
+	}
+
+	private void lancarErroAcessoNegado() {
+		throw new AccessDeniedException("Acesso Negado!");
 	}
 
 }

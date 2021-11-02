@@ -11,6 +11,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -43,10 +44,16 @@ public class TratamentoDeErros {
 
 	}
 
-	@ExceptionHandler({ConstraintViolationException.class, DataIntegrityViolationException.class})
+	@ExceptionHandler({ ConstraintViolationException.class, DataIntegrityViolationException.class })
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	public void tratarErro401() {
 
+	}
+
+	@ExceptionHandler({ AccessDeniedException.class })
+	@ResponseStatus(code = HttpStatus.FORBIDDEN)
+	public String tratarErro403(AccessDeniedException e) {
+		return e.getMessage();
 	}
 
 }
