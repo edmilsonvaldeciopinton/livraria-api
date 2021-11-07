@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import br.com.alura.livraria.dto.LivroDto;
 import br.com.alura.livraria.dto.LivroFormDto;
@@ -28,6 +29,9 @@ class LivroServiceTest {
 	@Mock
 	private AutorRepository autorRepository;
 
+	@Mock
+	private ModelMapper modelMapper;
+
 	@InjectMocks
 	private LivroService service;
 
@@ -42,7 +46,7 @@ class LivroServiceTest {
 
 		LivroDto dto = service.cadastrar(formLivroDto);
 
-		Mockito.verify(livroRepository.save(Mockito.any()));
+		Mockito.verify(livroRepository).save(Mockito.any());
 
 		assertEquals(formLivroDto.getTitulo(), dto.getTitulo());
 		assertEquals(formLivroDto.getDataLancamento(), dto.getDataLancamento());

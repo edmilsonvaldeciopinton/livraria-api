@@ -60,4 +60,5 @@ public class Autor {
 	public boolean pertenceAoUsuario(Usuario usuario) {
 		return this.usuario.equals(usuario);
 	}
+
 }
