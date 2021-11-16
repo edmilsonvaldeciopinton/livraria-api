@@ -44,7 +44,7 @@ class LivroServiceTest {
 	void deveriaCadastrarUmLivro() {
 		LivroFormDto formLivroDto = criarLivroFormDto();
 
-		LivroDto dto = service.cadastrar(formLivroDto);
+		LivroDto dto = service.cadastrar(formLivroDto.);
 
 		Mockito.verify(livroRepository).save(Mockito.any());
 
